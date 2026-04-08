@@ -50,6 +50,20 @@ python main.py --mode search --epochs 500 --batch_size 1024
 
 `--epochs` / `--batch_size` / `--lr_gamma` / `--seed` apply to every grid configuration (learning rates and architecture grid are chosen inside `main.py` from `build_search_space`).
 
+### Checkpoint from Hugging Face Hub (optional)
+
+If you use weights published on the Hub (the same pair as local training: `best_model.npz` and `best_model_meta.json`), download **both** files into **`artifacts/`** at the project root (same folder as `main.py`, i.e. `artifacts/best_model.npz` and `artifacts/best_model_meta.json`, not inside a subfolder).
+
+**Browser:** Open the published model page → [**hhhhhhhhhhhhhhhhhhhhh345/cv**](https://huggingface.co/hhhhhhhhhhhhhhhhhhhhh345/cv) → **Files and versions** → download each file → move or save them into **`artifacts/`** (create the folder if needed).
+
+**CLI** (with `huggingface_hub` installed):
+
+```bash
+huggingface-cli download hhhhhhhhhhhhhhhhhhhhh345/cv --local-dir artifacts --include "best_model.npz" --include "best_model_meta.json"
+```
+
+Then run `python main.py --mode test` as usual.
+
 ### Testing
 
 #### Test the **best single-checkpoint** (default test)
