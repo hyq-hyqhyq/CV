@@ -96,7 +96,7 @@ def run_smoke(model_name: str) -> None:
 
 
 def main() -> None:
-    for model_name in ("resnet18", "resnet34", "se_resnet18"):
+    for model_name in ("resnet18", "se_resnet18"):
         run_smoke(model_name)
 
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from torch import nn
-from torchvision.models import ResNet18_Weights, ResNet34_Weights, resnet18, resnet34
+from torchvision.models import ResNet18_Weights, resnet18
 
 from .se_resnet import load_pretrained_resnet18_backbone, se_resnet18
 
@@ -27,10 +27,6 @@ def build_model(config: dict[str, Any], num_classes: int) -> tuple[nn.Module, di
     if name == "resnet18":
         weights = ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
         model = resnet18(weights=weights)
-        model = _replace_classifier(model, num_classes=num_classes, dropout=dropout)
-    elif name == "resnet34":
-        weights = ResNet34_Weights.IMAGENET1K_V1 if pretrained else None
-        model = resnet34(weights=weights)
         model = _replace_classifier(model, num_classes=num_classes, dropout=dropout)
     elif name in {"se_resnet18", "seresnet18"}:
         model = se_resnet18(num_classes=num_classes, dropout=dropout)
