@@ -171,3 +171,84 @@ python tests/smoke_test.py
 - 超参数分析
 - 预训练消融
 - 注意力机制对比
+
+## 11. Hyperparameter Analysis
+
+本节提供一套可复现的“三轮超参搜索”脚本，基于 `configs/resnet18_pretrained.yaml`（ImageNet 预训练 `ResNet-18`）对学习率、训练轮数与正则化进行系统对比，并尽可能找到优于 baseline 的配置。
+
+### 11.1 第一轮：学习率搜索（7 张 GPU 并行）
+
+从 `task1/` 根目录执行：
+
+```bash
+bash scripts/run_hparam_phase1_lr_7gpu.sh
+```
+
+脚本会同时启动 7 个单卡训练进程（GPU 0-6），并将日志保存到 `logs/hparam/<experiment_name>.log`。
+
+### 11.2 收集结果（生成汇总 CSV + 打印 Top 10）
+
+训练结束后执行：
+
+```bash
+python scripts/collect_hparam_results.py
+```
+
+会生成 `outputs/hparam_summary.csv`，并在终端打印 `best_val_acc` 排名前 10 的实验。
+
+### 11.3 根据第一轮结果设置 BEST_BACKBONE_LR / BEST_HEAD_LR
+
+打开 `outputs/hparam_summary.csv`，在第一轮（`experiment_name` 以 `hparam_p1_lr_` 开头）里选择 `best_val_acc` 最高的一组，
+取其 `backbone_lr` 与 `head_lr` 作为第二轮/第三轮的默认学习率。
+
+你可以用环境变量传入：
+
+```bash
+BEST_BACKBONE_LR=2e-4 BEST_HEAD_LR=2e-3 bash scripts/run_hparam_phase2_reg_epoch_7gpu.sh
+```
+
+### 11.4 第二轮：训练轮数与正则化（7 张 GPU 并行）
+
+默认使用 `BEST_BACKBONE_LR=1e-4`、`BEST_HEAD_LR=1e-3`，也可由环境变量覆盖：
+
+```bash
+bash scripts/run_hparam_phase2_reg_epoch_7gpu.sh
+```
+
+### 11.5 第三轮：组合实验（可选，7 张 GPU 并行）
+
+第三轮允许传入：
+
+- `BEST_BACKBONE_LR`（默认 `1e-4`）
+- `BEST_HEAD_LR`（默认 `1e-3`）
+- `BEST_EPOCHS`（默认 `20`）
+- `BEST_WEIGHT_DECAY`（默认 `1e-4`）
+
+运行：
+
+```bash
+bash scripts/run_hparam_phase3_final_7gpu.sh
+```
+
+### 11.6 生成汇总 CSV 与可视化图
+
+```bash
+python scripts/collect_hparam_results.py
+python scripts/plot_hparam_bar.py
+```
+
+输出：
+
+- `outputs/hparam_summary.csv`：所有已完成实验的汇总表（按 `best_val_acc` 降序）
+- `outputs/hparam_plots/`：
+  - `top10_best_val_acc.png`
+  - `phase1_lr_best_val_acc.png`
+  - `phase2_reg_epoch_best_val_acc.png`
+
+### 11.7 报告建议引用
+
+建议在实验报告中：
+
+- 用 `outputs/hparam_summary.csv` 的表格对比不同超参设置；
+- 用 `outputs/hparam_plots/` 下的条形图展示关键对比；
+- 用每次运行目录下自动生成的 `training_curves.png` 展示收敛速度与过拟合趋势。
