@@ -1,5 +1,6 @@
-data/
-outputs/
-.venv/
-__pycache__/
-*.pyc
+# Ignore checkpoints (keep curves / csv / json / yaml)
+outputs/**/*.pt
+
+# optional: online logging dirs
+wandb/
+swanlab/
