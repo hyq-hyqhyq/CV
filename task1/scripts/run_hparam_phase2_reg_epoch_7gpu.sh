@@ -14,34 +14,58 @@ mkdir -p outputs/hparam_plots
 
 CONFIG="configs/resnet18_pretrained.yaml"
 
-CUDA_VISIBLE_DEVICES=0 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_ep10 training.epochs=10 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_ep10.log" 2>&1 &
+declare -a PIDS=()
+declare -a NAMES=()
 
-CUDA_VISIBLE_DEVICES=1 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_ep20 training.epochs=20 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_ep20.log" 2>&1 &
+run_one () {
+  local gpu="$1"
+  local name="$2"
+  shift 2
+  echo "[RUN] gpu=${gpu} name=${name}"
+  CUDA_VISIBLE_DEVICES="$gpu" PYTHONUNBUFFERED=1 python train.py --config "$CONFIG" --set \
+    "experiment.name=${name}" "$@" \
+    > "logs/hparam/${name}.log" 2>&1 &
+  PIDS+=("$!")
+  NAMES+=("${name}")
+}
 
-CUDA_VISIBLE_DEVICES=2 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_ep30 training.epochs=30 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_ep30.log" 2>&1 &
+run_one 0 hparam_p2_bestlr_ep10 \
+  training.epochs=10 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
 
-CUDA_VISIBLE_DEVICES=3 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_wd_5e-5 training.weight_decay=5e-5 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_wd_5e-5.log" 2>&1 &
+run_one 1 hparam_p2_bestlr_ep20 \
+  training.epochs=20 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
 
-CUDA_VISIBLE_DEVICES=4 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_wd_5e-4 training.weight_decay=5e-4 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_wd_5e-4.log" 2>&1 &
+run_one 2 hparam_p2_bestlr_ep30 \
+  training.epochs=30 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
 
-CUDA_VISIBLE_DEVICES=5 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_dropout_0p2 model.dropout=0.2 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_dropout_0p2.log" 2>&1 &
+run_one 3 hparam_p2_bestlr_wd_5e-5 \
+  training.weight_decay=5e-5 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
 
-CUDA_VISIBLE_DEVICES=6 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p2_bestlr_ls_0p1 training.label_smoothing=0.1 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" \
-  > "logs/hparam/hparam_p2_bestlr_ls_0p1.log" 2>&1 &
+run_one 4 hparam_p2_bestlr_wd_5e-4 \
+  training.weight_decay=5e-4 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
 
-wait
+run_one 5 hparam_p2_bestlr_dropout_0p2 \
+  model.dropout=0.2 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
+
+run_one 6 hparam_p2_bestlr_ls_0p1 \
+  training.label_smoothing=0.1 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
+
+FAILED=0
+for i in "${!PIDS[@]}"; do
+  pid="${PIDS[$i]}"
+  name="${NAMES[$i]}"
+  if ! wait "$pid"; then
+    echo "[FAIL] ${name} (pid=${pid}). Check logs/hparam/${name}.log"
+    FAILED=1
+  else
+    echo "[OK] ${name}"
+  fi
+done
+
+if [[ "$FAILED" -ne 0 ]]; then
+  echo "[ERROR] Phase 2 finished with failures. See logs/hparam/*.log"
+  exit 1
+fi
+
 echo "[OK] Phase 2 done. Logs are under logs/hparam/."
 

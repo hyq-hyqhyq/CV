@@ -16,34 +16,58 @@ mkdir -p outputs/hparam_plots
 
 CONFIG="configs/resnet18_pretrained.yaml"
 
-CUDA_VISIBLE_DEVICES=0 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_ep training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" \
-  > "logs/hparam/hparam_p3_final_lr_ep.log" 2>&1 &
+declare -a PIDS=()
+declare -a NAMES=()
 
-CUDA_VISIBLE_DEVICES=1 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_wd training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.weight_decay="$BEST_WEIGHT_DECAY" \
-  > "logs/hparam/hparam_p3_final_lr_wd.log" 2>&1 &
+run_one () {
+  local gpu="$1"
+  local name="$2"
+  shift 2
+  echo "[RUN] gpu=${gpu} name=${name}"
+  CUDA_VISIBLE_DEVICES="$gpu" PYTHONUNBUFFERED=1 python train.py --config "$CONFIG" --set \
+    "experiment.name=${name}" "$@" \
+    > "logs/hparam/${name}.log" 2>&1 &
+  PIDS+=("$!")
+  NAMES+=("${name}")
+}
 
-CUDA_VISIBLE_DEVICES=2 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_dropout training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" model.dropout=0.2 \
-  > "logs/hparam/hparam_p3_final_lr_dropout.log" 2>&1 &
+run_one 0 hparam_p3_final_lr_ep \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS"
 
-CUDA_VISIBLE_DEVICES=3 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_ls training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.label_smoothing=0.1 \
-  > "logs/hparam/hparam_p3_final_lr_ls.log" 2>&1 &
+run_one 1 hparam_p3_final_lr_wd \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.weight_decay="$BEST_WEIGHT_DECAY"
 
-CUDA_VISIBLE_DEVICES=4 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_ep_wd training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" training.weight_decay="$BEST_WEIGHT_DECAY" \
-  > "logs/hparam/hparam_p3_final_lr_ep_wd.log" 2>&1 &
+run_one 2 hparam_p3_final_lr_dropout \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" model.dropout=0.2
 
-CUDA_VISIBLE_DEVICES=5 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_ep_wd_dropout training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" training.weight_decay="$BEST_WEIGHT_DECAY" model.dropout=0.2 \
-  > "logs/hparam/hparam_p3_final_lr_ep_wd_dropout.log" 2>&1 &
+run_one 3 hparam_p3_final_lr_ls \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.label_smoothing=0.1
 
-CUDA_VISIBLE_DEVICES=6 python train.py --config "$CONFIG" --set \
-  experiment.name=hparam_p3_final_lr_ep_wd_ls training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" training.weight_decay="$BEST_WEIGHT_DECAY" training.label_smoothing=0.1 \
-  > "logs/hparam/hparam_p3_final_lr_ep_wd_ls.log" 2>&1 &
+run_one 4 hparam_p3_final_lr_ep_wd \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" training.weight_decay="$BEST_WEIGHT_DECAY"
 
-wait
+run_one 5 hparam_p3_final_lr_ep_wd_dropout \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" training.weight_decay="$BEST_WEIGHT_DECAY" model.dropout=0.2
+
+run_one 6 hparam_p3_final_lr_ep_wd_ls \
+  training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR" training.epochs="$BEST_EPOCHS" training.weight_decay="$BEST_WEIGHT_DECAY" training.label_smoothing=0.1
+
+FAILED=0
+for i in "${!PIDS[@]}"; do
+  pid="${PIDS[$i]}"
+  name="${NAMES[$i]}"
+  if ! wait "$pid"; then
+    echo "[FAIL] ${name} (pid=${pid}). Check logs/hparam/${name}.log"
+    FAILED=1
+  else
+    echo "[OK] ${name}"
+  fi
+done
+
+if [[ "$FAILED" -ne 0 ]]; then
+  echo "[ERROR] Phase 3 finished with failures. See logs/hparam/*.log"
+  exit 1
+fi
+
 echo "[OK] Phase 3 done. Logs are under logs/hparam/."
 

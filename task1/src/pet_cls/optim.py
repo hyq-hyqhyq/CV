@@ -16,7 +16,9 @@ def _parameter_groups(
     for name, parameter in model.named_parameters():
         if not parameter.requires_grad:
             continue
-        if name.startswith("fc."):
+        # torchvision resnet: "fc.*"
+        # timm models commonly use "head.*" or "classifier.*"
+        if name.startswith(("fc.", "head.", "classifier.")):
             head_params.append(parameter)
         else:
             backbone_params.append(parameter)

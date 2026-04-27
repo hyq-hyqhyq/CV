@@ -5,5 +5,6 @@ torchvision>=0.19
 PyYAML>=6.0
 matplotlib>=3.8
 tqdm>=4.66
+timm>=1.0
 wandb>=0.17
 swanlab>=0.4

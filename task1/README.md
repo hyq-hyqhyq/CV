@@ -7,6 +7,9 @@
 - 基线模型：`ResNet-18` 的 ImageNet 预训练微调
 - 预训练消融：`ResNet-18` 从随机初始化开始训练
 - 注意力机制：在 `ResNet-18` 基础上加入 `SE Block`，得到 `SE-ResNet18`
+- 注意力机制（扩展）：在 `ResNet-18` 基础上加入 `CBAM`，得到 `CBAM-ResNet18`
+- Transformer（轻量）：`ViT-Tiny`（timm）
+- Transformer（轻量）：`Swin-T`（timm）
 - 超参数实验：支持比较不同学习率、训练轮数等设置
 - 训练可视化：自动保存训练集和验证集的 `loss`、`accuracy` 曲线
 - 日志后端：支持 `wandb` 或 `swanlab`
@@ -66,6 +69,24 @@ python train.py --config configs/resnet18_scratch.yaml
 
 ```bash
 python train.py --config configs/se_resnet18_pretrained.yaml
+```
+
+### 3.4 注意力机制：CBAM-ResNet18
+
+```bash
+python train.py --config configs/cbam_resnet18_pretrained.yaml
+```
+
+### 3.5 轻量级 Transformer：ViT-Tiny
+
+```bash
+python train.py --config configs/vit_tiny_pretrained.yaml
+```
+
+### 3.6 轻量级 Transformer：Swin-T
+
+```bash
+python train.py --config configs/swin_t_pretrained.yaml
 ```
 
 ## 4. 超参数实验
