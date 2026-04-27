@@ -1,0 +1,29 @@
+experiment:
+  name: se_resnet18_pretrained
+
+dataset:
+  batch_size: 32
+  num_workers: 2
+  val_ratio: 0.15
+  image_size: 224
+
+model:
+  name: se_resnet18
+  pretrained: true
+  num_classes: 37
+  dropout: 0.0
+
+training:
+  epochs: 20
+  optimizer: adamw
+  backbone_lr: 0.0001
+  head_lr: 0.001
+  weight_decay: 0.0001
+  scheduler: cosine
+  min_lr: 0.000001
+  label_smoothing: 0.0
+  amp: true
+
+logging:
+  backend: none
+  log_interval: 20

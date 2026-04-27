@@ -1,0 +1,15 @@
+data/VisDrone2019-DET/
+outputs/
+runs/
+wandb/
+__pycache__/
+*.pyc
+*.pt
+*.onnx
+*.engine
+*.mp4
+*.avi
+*.csv
+*.json
+!configs/*.json
+!configs/*.yaml
