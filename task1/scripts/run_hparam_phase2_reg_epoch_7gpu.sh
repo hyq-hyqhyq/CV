@@ -17,10 +17,19 @@ CONFIG="configs/resnet18_pretrained.yaml"
 declare -a PIDS=()
 declare -a NAMES=()
 
+is_done () {
+  local name="$1"
+  find outputs -maxdepth 1 -type d -name "*_${name}" -exec test -f "{}/summary.json" \; -print -quit | grep -q .
+}
+
 run_one () {
   local gpu="$1"
   local name="$2"
   shift 2
+  if is_done "$name"; then
+    echo "[SKIP] ${name} already has summary.json"
+    return
+  fi
   echo "[RUN] gpu=${gpu} name=${name}"
   CUDA_VISIBLE_DEVICES="$gpu" PYTHONUNBUFFERED=1 python train.py --config "$CONFIG" --set \
     "experiment.name=${name}" "$@" \
@@ -51,16 +60,20 @@ run_one 6 hparam_p2_bestlr_ls_0p1 \
   training.label_smoothing=0.1 training.backbone_lr="$BEST_BACKBONE_LR" training.head_lr="$BEST_HEAD_LR"
 
 FAILED=0
-for i in "${!PIDS[@]}"; do
-  pid="${PIDS[$i]}"
-  name="${NAMES[$i]}"
-  if ! wait "$pid"; then
-    echo "[FAIL] ${name} (pid=${pid}). Check logs/hparam/${name}.log"
-    FAILED=1
-  else
-    echo "[OK] ${name}"
-  fi
-done
+if [[ "${#PIDS[@]}" -eq 0 ]]; then
+  echo "[OK] Phase 2 already complete."
+else
+  for i in "${!PIDS[@]}"; do
+    pid="${PIDS[$i]}"
+    name="${NAMES[$i]}"
+    if ! wait "$pid"; then
+      echo "[FAIL] ${name} (pid=${pid}). Check logs/hparam/${name}.log"
+      FAILED=1
+    else
+      echo "[OK] ${name}"
+    fi
+  done
+fi
 
 if [[ "$FAILED" -ne 0 ]]; then
   echo "[ERROR] Phase 2 finished with failures. See logs/hparam/*.log"
@@ -68,4 +81,3 @@ if [[ "$FAILED" -ne 0 ]]; then
 fi
 
 echo "[OK] Phase 2 done. Logs are under logs/hparam/."
-

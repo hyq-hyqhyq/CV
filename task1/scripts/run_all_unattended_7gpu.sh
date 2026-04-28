@@ -21,13 +21,41 @@ except Exception as exc:
     print(f"[WARN] timm import failed: {exc}")
 PY
 
+echo "[INFO] Preparing Oxford-IIIT Pet dataset once before parallel jobs..."
+PYTHONUNBUFFERED=1 python - <<'PY'
+import sys
+from pathlib import Path
+
+root = Path.cwd()
+src = root / "src"
+if str(src) not in sys.path:
+    sys.path.insert(0, str(src))
+
+from pet_cls.config import load_config
+from pet_cls.data import build_dataloaders
+
+config = load_config("configs/resnet18_pretrained.yaml")
+config["dataset"]["root"] = str((root / config["dataset"]["root"]).resolve())
+loaders, meta = build_dataloaders(config)
+print(f"[INFO] dataset ready: {meta['split_sizes']}")
+PY
+
 declare -a PIDS=()
 declare -a NAMES=()
+
+is_done () {
+  local name="$1"
+  find outputs -maxdepth 1 -type d -name "*_${name}" -exec test -f "{}/summary.json" \; -print -quit | grep -q .
+}
 
 run_bg () {
   local gpu="$1"
   local name="$2"
   shift 2
+  if is_done "$name"; then
+    echo "[SKIP] ${name} already has summary.json"
+    return
+  fi
   echo "[RUN] gpu=${gpu} name=${name} cmd=$*"
   CUDA_VISIBLE_DEVICES="$gpu" PYTHONUNBUFFERED=1 "$@" \
     > "logs/run_all/${name}.log" 2>&1 &
@@ -36,6 +64,10 @@ run_bg () {
 }
 
 wait_all () {
+  if [[ "${#PIDS[@]}" -eq 0 ]]; then
+    echo "[OK] Nothing to wait for in this step."
+    return
+  fi
   local failed=0
   for i in "${!PIDS[@]}"; do
     local pid="${PIDS[$i]}"

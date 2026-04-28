@@ -1,6 +1,10 @@
 # Ignore checkpoints (keep curves / csv / json / yaml)
 outputs/**/*.pt
 
+# Python cache files
+__pycache__/
+*.pyc
+
 # optional: online logging dirs
 wandb/
 swanlab/
