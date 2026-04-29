@@ -1,0 +1,15 @@
+
+# datasets
+task1/data/
+task2/data/
+
+# checkpoints / model weights
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.engine
+
+# python cache
+__pycache__/
+*.pyc

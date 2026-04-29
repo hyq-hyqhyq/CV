@@ -1,0 +1,18 @@
+{
+  "experiment_name": "swin_t_pretrained",
+  "run_dir": "/mnt/data/huangyingqian/code/CV/task1/outputs/20260429_030126_swin_t_pretrained",
+  "device": "cuda",
+  "best_epoch": 11,
+  "best_val_acc": 0.9637023593466425,
+  "test_acc": 0.9250476969201418,
+  "test_loss": 0.33398699450690233,
+  "split_sizes": {
+    "train": 3129,
+    "val": 551,
+    "test": 3669
+  },
+  "model_meta": {
+    "model_name": "swin_t",
+    "pretrained": true
+  }
+}

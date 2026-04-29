@@ -1,0 +1,18 @@
+{
+  "experiment_name": "vit_tiny_pretrained",
+  "run_dir": "/mnt/data/huangyingqian/code/CV/task1/outputs/20260429_030126_vit_tiny_pretrained",
+  "device": "cuda",
+  "best_epoch": 16,
+  "best_val_acc": 0.9401088929219601,
+  "test_acc": 0.8986099754701553,
+  "test_loss": 0.3842621080340799,
+  "split_sizes": {
+    "train": 3129,
+    "val": 551,
+    "test": 3669
+  },
+  "model_meta": {
+    "model_name": "vit_tiny",
+    "pretrained": true
+  }
+}

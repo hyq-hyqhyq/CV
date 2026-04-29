@@ -1,0 +1,50 @@
+{
+  "experiment_name": "cbam_resnet18_pretrained",
+  "run_dir": "/mnt/data/huangyingqian/code/CV/task1/outputs/20260429_030126_cbam_resnet18_pretrained",
+  "device": "cuda",
+  "best_epoch": 19,
+  "best_val_acc": 0.9183303085299456,
+  "test_acc": 0.8678113927500681,
+  "test_loss": 0.46904717313882666,
+  "split_sizes": {
+    "train": 3129,
+    "val": 551,
+    "test": 3669
+  },
+  "model_meta": {
+    "model_name": "cbam_resnet18",
+    "pretrained": true,
+    "pretrained_backbone": {
+      "loaded_keys": 120,
+      "missing_keys": [
+        "layer1.0.cbam.ca.mlp.0.weight",
+        "layer1.0.cbam.ca.mlp.2.weight",
+        "layer1.0.cbam.sa.conv.weight",
+        "layer1.1.cbam.ca.mlp.0.weight",
+        "layer1.1.cbam.ca.mlp.2.weight",
+        "layer1.1.cbam.sa.conv.weight",
+        "layer2.0.cbam.ca.mlp.0.weight",
+        "layer2.0.cbam.ca.mlp.2.weight",
+        "layer2.0.cbam.sa.conv.weight",
+        "layer2.1.cbam.ca.mlp.0.weight",
+        "layer2.1.cbam.ca.mlp.2.weight",
+        "layer2.1.cbam.sa.conv.weight",
+        "layer3.0.cbam.ca.mlp.0.weight",
+        "layer3.0.cbam.ca.mlp.2.weight",
+        "layer3.0.cbam.sa.conv.weight",
+        "layer3.1.cbam.ca.mlp.0.weight",
+        "layer3.1.cbam.ca.mlp.2.weight",
+        "layer3.1.cbam.sa.conv.weight",
+        "layer4.0.cbam.ca.mlp.0.weight",
+        "layer4.0.cbam.ca.mlp.2.weight",
+        "layer4.0.cbam.sa.conv.weight",
+        "layer4.1.cbam.ca.mlp.0.weight",
+        "layer4.1.cbam.ca.mlp.2.weight",
+        "layer4.1.cbam.sa.conv.weight",
+        "fc.weight",
+        "fc.bias"
+      ],
+      "unexpected_keys": []
+    }
+  }
+}

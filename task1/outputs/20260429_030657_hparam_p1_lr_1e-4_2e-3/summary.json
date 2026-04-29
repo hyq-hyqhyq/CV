@@ -1,0 +1,18 @@
+{
+  "experiment_name": "hparam_p1_lr_1e-4_2e-3",
+  "run_dir": "/mnt/data/huangyingqian/code/CV/task1/outputs/20260429_030657_hparam_p1_lr_1e-4_2e-3",
+  "device": "cuda",
+  "best_epoch": 9,
+  "best_val_acc": 0.941923774954628,
+  "test_acc": 0.8844371763423277,
+  "test_loss": 0.4125677212345792,
+  "split_sizes": {
+    "train": 3129,
+    "val": 551,
+    "test": 3669
+  },
+  "model_meta": {
+    "model_name": "resnet18",
+    "pretrained": true
+  }
+}
