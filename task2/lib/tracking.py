@@ -13,6 +13,7 @@ import cv2
 class TrackState:
     trail: deque[tuple[int, int]] = field(default_factory=lambda: deque(maxlen=30))
     previous_distance: float | None = None
+    previous_stable_side: int | None = None
     counted: bool = False
     last_frame_seen: int = -1
 
@@ -39,6 +40,16 @@ def bbox_center(x1: float, y1: float, x2: float, y2: float) -> tuple[int, int]:
     return (int(round((x1 + x2) / 2.0)), int(round((y1 + y2) / 2.0)))
 
 
+def bbox_count_point(x1: float, y1: float, x2: float, y2: float, mode: str) -> tuple[int, int]:
+    if mode == "center":
+        return bbox_center(x1, y1, x2, y2)
+    if mode == "bottom_center":
+        return (int(round((x1 + x2) / 2.0)), int(round(y2)))
+    if mode == "bottom_mid_80":
+        return (int(round((x1 + x2) / 2.0)), int(round(y1 * 0.2 + y2 * 0.8)))
+    raise ValueError(f"Unsupported count point mode: {mode}")
+
+
 def signed_distance_to_line(
     point: tuple[int, int],
     line_start: tuple[int, int],
@@ -60,6 +71,12 @@ def check_line_crossing(previous_distance: float | None, current_distance: float
     if abs(previous_distance) <= dead_zone or abs(current_distance) <= dead_zone:
         return False
     return previous_distance * current_distance < 0
+
+
+def stable_side(distance: float, dead_zone: float) -> int:
+    if abs(distance) <= dead_zone:
+        return 0
+    return 1 if distance > 0 else -1
 
 
 def color_for_track(track_id: int) -> tuple[int, int, int]:

@@ -12,11 +12,12 @@ from ultralytics import YOLO
 from task2.lib.tracking import (
     TrackState,
     bbox_center,
-    check_line_crossing,
+    bbox_count_point,
     color_for_track,
     draw_virtual_line,
     load_line_definition,
     signed_distance_to_line,
+    stable_side,
 )
 
 
@@ -37,6 +38,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--line", nargs=4, type=int, default=None, metavar=("X1", "Y1", "X2", "Y2"))
     parser.add_argument("--line-config", type=Path, default=Path("task2/configs/line_count.sample.json"))
     parser.add_argument("--dead-zone", type=float, default=10.0)
+    parser.add_argument(
+        "--count-point",
+        default="bottom_center",
+        choices=["center", "bottom_center", "bottom_mid_80"],
+        help="Which point of each bbox is used for line crossing. bottom_center is usually better for road scenes.",
+    )
     parser.add_argument("--show-trails", action="store_true")
     parser.add_argument("--trail-length", type=int, default=30)
     parser.add_argument("--output-dir", type=Path, default=Path("task2/outputs/tracking"))
@@ -105,6 +112,8 @@ def main() -> None:
             "y2",
             "center_x",
             "center_y",
+            "count_point_x",
+            "count_point_y",
             "signed_distance",
             "crossed_line",
         ]
@@ -140,26 +149,35 @@ def main() -> None:
                 for bbox, confidence, class_id, track_id in zip(xyxy_list, conf_list, cls_list, id_list):
                     x1, y1, x2, y2 = bbox
                     center = bbox_center(x1, y1, x2, y2)
+                    count_point = bbox_count_point(x1, y1, x2, y2, args.count_point)
                     track_label = int(track_id)
                     state = track_states.setdefault(track_label, TrackState()) if track_label >= 0 else TrackState()
                     if state.trail.maxlen != args.trail_length:
                         state.trail = state.trail.__class__(state.trail, maxlen=args.trail_length)
-                    state.trail.append(center)
-                    current_distance = signed_distance_to_line(center, line_start, line_end)
+                    state.trail.append(count_point)
+                    current_distance = signed_distance_to_line(count_point, line_start, line_end)
 
                     crossed_line = False
-                    if track_label >= 0 and check_line_crossing(state.previous_distance, current_distance, dead_zone):
-                        if track_label not in counted_ids:
-                            total_crossings += 1
-                            counted_ids.add(track_label)
-                            crossed_line = True
-                            class_name = names.get(class_id, str(class_id))
-                            classwise_counts[class_name] += 1
-                            if state.previous_distance is not None and state.previous_distance < 0 < current_distance:
-                                forward_count += 1
-                            else:
-                                backward_count += 1
-                            state.counted = True
+                    current_side = stable_side(current_distance, dead_zone)
+                    if track_label >= 0 and current_side != 0:
+                        if state.previous_stable_side is None:
+                            state.previous_stable_side = current_side
+                        elif current_side != state.previous_stable_side:
+                            previous_side = state.previous_stable_side
+                            state.previous_stable_side = current_side
+                            if track_label not in counted_ids:
+                                total_crossings += 1
+                                counted_ids.add(track_label)
+                                crossed_line = True
+                                class_name = names.get(class_id, str(class_id))
+                                classwise_counts[class_name] += 1
+                                if previous_side < 0 < current_side:
+                                    forward_count += 1
+                                else:
+                                    backward_count += 1
+                                state.counted = True
+                        else:
+                            state.previous_stable_side = current_side
 
                     state.previous_distance = current_distance
                     state.last_frame_seen = frame_index
@@ -183,7 +201,7 @@ def main() -> None:
                         2,
                         cv2.LINE_AA,
                     )
-                    cv2.circle(frame, center, radius=4, color=color, thickness=-1)
+                    cv2.circle(frame, count_point, radius=4, color=color, thickness=-1)
 
                     if args.show_trails and len(state.trail) >= 2:
                         trail_points = list(state.trail)
@@ -204,6 +222,8 @@ def main() -> None:
                             "y2": f"{y2:.2f}",
                             "center_x": center[0],
                             "center_y": center[1],
+                            "count_point_x": count_point[0],
+                            "count_point_y": count_point[1],
                             "signed_distance": f"{current_distance:.6f}",
                             "crossed_line": int(crossed_line),
                         }
@@ -226,6 +246,7 @@ def main() -> None:
         "tracker_config": str(args.tracker.resolve()),
         "line": [list(line_start), list(line_end)],
         "dead_zone": dead_zone,
+        "count_point": args.count_point,
         "fps": fps,
         "frame_width": width,
         "frame_height": height,
