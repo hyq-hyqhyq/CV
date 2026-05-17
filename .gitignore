@@ -13,3 +13,10 @@ task2/data/
 # python cache
 __pycache__/
 *.pyc
+
+# Large local data / weights
+*.pt
+*.pth
+*.ckpt
+task2/data/
+runs/**/weights/
