@@ -1,0 +1,26 @@
+{
+  "source_video": "/mnt/data/huangyingqian/code/CV/task2/videos/test_h264.mp4",
+  "annotated_video": "/mnt/data/huangyingqian/code/CV/task2/outputs/tracking/test_tracked.mp4",
+  "tracking_csv": "/mnt/data/huangyingqian/code/CV/task2/outputs/tracking/test_h264_tracking.csv",
+  "tracker_config": "/mnt/data/huangyingqian/code/CV/task2/configs/botsort_task2.yaml",
+  "line": [
+    [
+      240,
+      450
+    ],
+    [
+      1200,
+      470
+    ]
+  ],
+  "dead_zone": 10.0,
+  "fps": 30.0,
+  "frame_width": 1264,
+  "frame_height": 720,
+  "total_frames": 261,
+  "total_crossings": 0,
+  "forward_count": 0,
+  "backward_count": 0,
+  "counted_track_ids": [],
+  "classwise_counts": {}
+}

@@ -1,15 +1,13 @@
-[hevc @ 0x599dde91a840] Invalid NAL unit size (63679 > 56991).
-[hevc @ 0x599dde91a840] Error splitting the input into NAL units.
-Processed frame 1/456
-Processed frame 31/456
-Processed frame 61/456
-Processed frame 91/456
-Processed frame 121/456
-Processed frame 151/456
-Processed frame 181/456
-Processed frame 211/456
-Processed frame 241/456
+Processed frame 1/261
+Processed frame 31/261
+Processed frame 61/261
+Processed frame 91/261
+Processed frame 121/261
+Processed frame 151/261
+Processed frame 181/261
+Processed frame 211/261
+Processed frame 241/261
 Annotated video: task2/outputs/tracking/test_tracked.mp4
-Tracking CSV: task2/outputs/tracking/test_tracking.csv
-Summary JSON: task2/outputs/tracking/test_summary.json
+Tracking CSV: task2/outputs/tracking/test_h264_tracking.csv
+Summary JSON: task2/outputs/tracking/test_h264_summary.json
 Total crossings: 0
