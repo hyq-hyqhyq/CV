@@ -1,0 +1,85 @@
+_wandb:
+    value:
+        cli_version: 0.26.1
+        e:
+            8ax0jhyrtyl145w2inzaz54vulq8c1zn:
+                args:
+                    - --model
+                    - yolov8n.pt
+                    - --data
+                    - task2/configs/visdrone_det.local.yaml
+                    - --imgsz
+                    - "960"
+                    - --epochs
+                    - "80"
+                    - --batch
+                    - "8"
+                    - --device
+                    - "0"
+                    - --optimizer
+                    - SGD
+                    - --lr0
+                    - "0.01"
+                    - --name
+                    - visdrone_yolov8n
+                    - --sync-wandb
+                email: 23307140104@m.fudan.edu.cn
+                executable: /home/huangyingqian/miniconda3/envs/m/bin/python
+                git:
+                    commit: a29976e5191f18dfdb3719a7da6e2d196343fc06
+                    remote: https://github.com/hyq-hyqhyq/CV.git
+                host: server4090
+                os: Linux-6.8.0-111-generic-x86_64-with-glibc2.35
+                program: -m task2.scripts.train_detector
+                python: CPython 3.10.20
+                root: /mnt/data/huangyingqian/code/CV
+                startedAt: "2026-05-16T16:59:17.796620Z"
+                writerId: 8ax0jhyrtyl145w2inzaz54vulq8c1zn
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 30
+                - 41
+            "2":
+                - 1
+                - 30
+                - 41
+            "3":
+                - 2
+                - 13
+                - 15
+                - 16
+                - 61
+                - 62
+            "4": 3.10.20
+            "5": 0.26.1
+            "12": 0.26.1
+            "13": linux-x86_64
+batch:
+    value: 8
+close_mosaic:
+    value: 10
+data:
+    value: task2/configs/visdrone_det.local.yaml
+epochs:
+    value: 80
+imgsz:
+    value: 960
+lr0:
+    value: 0.01
+lrf:
+    value: 0.01
+model:
+    value: yolov8n.pt
+optimizer:
+    value: SGD
+patience:
+    value: 30
+seed:
+    value: 42
+warmup_epochs:
+    value: 3
+weight_decay:
+    value: 0.0005

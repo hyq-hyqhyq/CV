@@ -1,0 +1,24 @@
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_setup.py:_flush():81] Current SDK version is 0.26.1
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_setup.py:_flush():81] Configure stats pid to 130668
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_init.py:setup_run_log_directory():723] Logging user logs to /mnt/data/huangyingqian/code/CV/wandb/run-20260516_125917-o2mbpf2k/logs/debug.log
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_init.py:setup_run_log_directory():724] Logging internal logs to /mnt/data/huangyingqian/code/CV/wandb/run-20260516_125917-o2mbpf2k/logs/debug-internal.log
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_init.py:init():850] calling init triggers
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_init.py:init():855] wandb.init called with sweep_config: {}
+config: {'model': 'yolov8n.pt', 'data': 'task2/configs/visdrone_det.local.yaml', 'imgsz': 960, 'epochs': 80, 'batch': 8, 'optimizer': 'SGD', 'lr0': 0.01, 'lrf': 0.01, 'weight_decay': 0.0005, 'warmup_epochs': 3.0, 'close_mosaic': 10, 'patience': 30, 'seed': 42, '_wandb': {}}
+2026-05-16 12:59:17,798 INFO    MainThread:130668 [wandb_init.py:init():898] starting backend
+2026-05-16 12:59:18,076 INFO    MainThread:130668 [wandb_init.py:init():913] sending inform_init request
+2026-05-16 12:59:18,558 INFO    MainThread:130668 [wandb_init.py:init():918] backend started and connected
+2026-05-16 12:59:18,560 INFO    MainThread:130668 [wandb_init.py:init():988] updated telemetry
+2026-05-16 12:59:18,565 INFO    MainThread:130668 [wandb_init.py:init():1011] communicating run to backend with 90.0 second timeout
+2026-05-16 12:59:19,026 INFO    MainThread:130668 [wandb_init.py:init():1056] starting run threads in backend
+2026-05-16 12:59:19,182 INFO    MainThread:130668 [wandb_run.py:_console_start():2554] atexit reg
+2026-05-16 12:59:19,182 INFO    MainThread:130668 [wandb_run.py:_redirect():2403] redirect: wrap_raw
+2026-05-16 12:59:19,182 INFO    MainThread:130668 [wandb_run.py:_redirect():2472] Wrapping output streams.
+2026-05-16 12:59:19,182 INFO    MainThread:130668 [wandb_run.py:_redirect():2495] Redirects installed.
+2026-05-16 12:59:19,186 INFO    MainThread:130668 [wandb_init.py:init():1094] run started, returning control to user process
+2026-05-16 12:59:19,212 INFO    MainThread:130668 [wandb_run.py:_finish():2321] finishing run 23307140104_/cv-task2-visdrone/o2mbpf2k
+2026-05-16 12:59:19,213 INFO    MainThread:130668 [wandb_run.py:_atexit_cleanup():2520] got exitcode: 0
+2026-05-16 12:59:19,213 INFO    MainThread:130668 [wandb_run.py:_restore():2502] restore
+2026-05-16 12:59:19,213 INFO    MainThread:130668 [wandb_run.py:_restore():2508] restore done
+2026-05-16 12:59:21,231 INFO    MainThread:130668 [wandb_run.py:_footer_sync_info():3889] logging synced files

@@ -1,0 +1,36 @@
+{
+  "os":  "Linux-6.8.0-111-generic-x86_64-with-glibc2.35",
+  "python":  "CPython 3.10.20",
+  "startedAt":  "2026-05-16T16:59:17.796620Z",
+  "args":  [
+    "--model",
+    "yolov8n.pt",
+    "--data",
+    "task2/configs/visdrone_det.local.yaml",
+    "--imgsz",
+    "960",
+    "--epochs",
+    "80",
+    "--batch",
+    "8",
+    "--device",
+    "0",
+    "--optimizer",
+    "SGD",
+    "--lr0",
+    "0.01",
+    "--name",
+    "visdrone_yolov8n",
+    "--sync-wandb"
+  ],
+  "program":  "-m task2.scripts.train_detector",
+  "git":  {
+    "remote":  "https://github.com/hyq-hyqhyq/CV.git",
+    "commit":  "a29976e5191f18dfdb3719a7da6e2d196343fc06"
+  },
+  "email":  "23307140104@m.fudan.edu.cn",
+  "root":  "/mnt/data/huangyingqian/code/CV",
+  "host":  "server4090",
+  "executable":  "/home/huangyingqian/miniconda3/envs/m/bin/python",
+  "writerId":  "8ax0jhyrtyl145w2inzaz54vulq8c1zn"
+}
