@@ -10,4 +10,4 @@ Processed frame 241/261
 Annotated video: task2/outputs/tracking/test_tracked.mp4
 Tracking CSV: task2/outputs/tracking/test_h264_tracking.csv
 Summary JSON: task2/outputs/tracking/test_h264_summary.json
-Total crossings: 0
+Total crossings: 1

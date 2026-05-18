@@ -14,13 +14,18 @@
     ]
   ],
   "dead_zone": 10.0,
+  "count_point": "bottom_center",
   "fps": 30.0,
   "frame_width": 1264,
   "frame_height": 720,
   "total_frames": 261,
-  "total_crossings": 0,
-  "forward_count": 0,
+  "total_crossings": 1,
+  "forward_count": 1,
   "backward_count": 0,
-  "counted_track_ids": [],
-  "classwise_counts": {}
+  "counted_track_ids": [
+    115
+  ],
+  "classwise_counts": {
+    "van": 1
+  }
 }
