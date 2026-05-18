@@ -1,0 +1,93 @@
+{
+  "video": "task2/videos/aerial.mp4",
+  "frame_id": 162,
+  "width": 1920,
+  "height": 1080,
+  "center_x": 960,
+  "candidates": [
+    {
+      "offset": 0,
+      "line": [
+        [
+          960,
+          0
+        ],
+        [
+          960,
+          1080
+        ]
+      ],
+      "preview": "task2/report_assets/line_trials_aerial/aerial_line_x960_offset0.jpg"
+    },
+    {
+      "offset": -40,
+      "line": [
+        [
+          920,
+          0
+        ],
+        [
+          920,
+          1080
+        ]
+      ],
+      "preview": "task2/report_assets/line_trials_aerial/aerial_line_x920_offset-40.jpg"
+    },
+    {
+      "offset": -80,
+      "line": [
+        [
+          880,
+          0
+        ],
+        [
+          880,
+          1080
+        ]
+      ],
+      "preview": "task2/report_assets/line_trials_aerial/aerial_line_x880_offset-80.jpg"
+    },
+    {
+      "offset": -120,
+      "line": [
+        [
+          840,
+          0
+        ],
+        [
+          840,
+          1080
+        ]
+      ],
+      "preview": "task2/report_assets/line_trials_aerial/aerial_line_x840_offset-120.jpg"
+    },
+    {
+      "offset": -160,
+      "line": [
+        [
+          800,
+          0
+        ],
+        [
+          800,
+          1080
+        ]
+      ],
+      "preview": "task2/report_assets/line_trials_aerial/aerial_line_x800_offset-160.jpg"
+    },
+    {
+      "offset": -200,
+      "line": [
+        [
+          760,
+          0
+        ],
+        [
+          760,
+          1080
+        ]
+      ],
+      "preview": "task2/report_assets/line_trials_aerial/aerial_line_x760_offset-200.jpg"
+    }
+  ]
+}

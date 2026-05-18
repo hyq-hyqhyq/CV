@@ -1,0 +1,16 @@
+Processed frame 1/325
+Processed frame 31/325
+Processed frame 61/325
+Processed frame 91/325
+Processed frame 121/325
+Processed frame 151/325
+Processed frame 181/325
+Processed frame 211/325
+Processed frame 241/325
+Processed frame 271/325
+Processed frame 301/325
+Annotated video: task2/outputs/tracking/aerial_x880_tracked.mp4
+Tracking CSV: task2/outputs/tracking/aerial_tracking.csv
+Summary JSON: task2/outputs/tracking/aerial_summary.json
+Processed frames: 325/325
+Total crossings: 15
