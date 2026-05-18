@@ -1,0 +1,42 @@
+[
+  {
+    "start_frame": 302,
+    "end_frame": 305,
+    "avg_detections": 93.5,
+    "avg_overlap_pairs": 4.5,
+    "avg_max_iou": 0.980424937145767,
+    "score": 105.4412748114373
+  },
+  {
+    "start_frame": 294,
+    "end_frame": 297,
+    "avg_detections": 93.5,
+    "avg_overlap_pairs": 3.5,
+    "avg_max_iou": 0.9782430367953125,
+    "score": 103.43472911038594
+  },
+  {
+    "start_frame": 317,
+    "end_frame": 320,
+    "avg_detections": 92.5,
+    "avg_overlap_pairs": 2.5,
+    "avg_max_iou": 0.9871205631936035,
+    "score": 100.46136168958081
+  },
+  {
+    "start_frame": 298,
+    "end_frame": 301,
+    "avg_detections": 91.75,
+    "avg_overlap_pairs": 2.25,
+    "avg_max_iou": 0.9787127567847116,
+    "score": 99.18613827035414
+  },
+  {
+    "start_frame": 306,
+    "end_frame": 309,
+    "avg_detections": 91.0,
+    "avg_overlap_pairs": 2.75,
+    "avg_max_iou": 0.743345171452031,
+    "score": 98.7300355143561
+  }
+]
