@@ -354,6 +354,38 @@ frames 302-305
 | W&B 或 SwanLab 截图 | 视老师要求 | 当前有本地曲线生成逻辑；若必须使用平台截图，需要从 W&B/SwanLab 页面截取。 |
 | GitHub repo 链接 | 已有 | `https://github.com/hyq-hyqhyq/CV/tree/pj2`。 |
 
+## 报告图片与视频素材路径
+
+### 已有素材
+
+| 用途 | 路径 | 说明 |
+| --- | --- | --- |
+| 测试视频原视频 | `task2/videos/aerial.mp4` | 10.83 秒航拍视频。 |
+| 检测 + 跟踪 + 越线计数视频 | `task2/outputs/tracking/aerial_x880_tracked.mp4` | 报告可截图，也可作为演示视频。 |
+| 跟踪与计数统计 | `task2/outputs/tracking/aerial_summary.json` | 包含 total crossings、forward/backward count、类别计数。 |
+| 逐帧跟踪结果 | `task2/outputs/tracking/aerial_tracking.csv` | 包含 bbox、类别、Tracking ID、中心点、越线标记。 |
+| 最终越线配置 | `task2/configs/line_count.aerial_x880.json` | 虚拟线为 `[[880, 340], [880, 840]]`。 |
+| 训练日志 | `task2/logs/train_yolov8m_1280_ep200.log` | 可引用训练配置和 mAP 表格。 |
+| 跟踪日志 | `task2/logs/track_aerial_x880.log` | 可证明完整处理 `325/325` 帧。 |
+
+### 待生成后用于报告的图片
+
+这些文件当前本地还缺，建议在服务器生成后拉回本地或推到 GitHub：
+
+| 用途 | 建议路径 | 说明 |
+| --- | --- | --- |
+| 训练 loss 曲线 | `task2/report_assets/curves/loss_curves.png` | 报告 “train/val loss 曲线”。 |
+| mAP / precision / recall 曲线 | `task2/report_assets/curves/metric_curves.png` | 报告 “validation mAP 曲线”。 |
+| 学习率曲线 | `task2/report_assets/curves/lr_curves.png` | 可选，用于实验设置或训练过程说明。 |
+| Ultralytics 总结果图 | `task2/report_assets/curves/results.png` | 同时包含 loss 和指标曲线，可直接插报告。 |
+| PR 曲线 | `task2/report_assets/curves/BoxPR_curve.png` | 可选，用于检测性能分析。 |
+| F1 曲线 | `task2/report_assets/curves/BoxF1_curve.png` | 可选，用于阈值分析。 |
+| 混淆矩阵 | `task2/report_assets/curves/confusion_matrix.png` | 可选，用于类别混淆分析。 |
+| 归一化混淆矩阵 | `task2/report_assets/curves/confusion_matrix_normalized.png` | 可选，更适合放报告。 |
+| 遮挡连续帧 1-4 | `task2/report_assets/occlusion/aerial_occlusion_302_305_frame_00302.png` 等 | 报告必须展示的 3-4 帧。 |
+| 遮挡连续帧拼图 | `task2/report_assets/occlusion/aerial_occlusion_302_305_strip.png` | 推荐直接插报告。 |
+| 遮挡候选帧 JSON | `task2/report_assets/occlusion/aerial_occlusion_candidates.json` | 记录自动筛选出的候选片段。 |
+
 ## 待补材料生成命令
 
 ### 1. 生成并复制训练曲线
