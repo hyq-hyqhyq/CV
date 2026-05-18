@@ -1,0 +1,15 @@
+[hevc @ 0x5f959d557900] Invalid NAL unit size (63679 > 56991).
+[hevc @ 0x5f959d557900] Error splitting the input into NAL units.
+Processed frame 1/456
+Processed frame 31/456
+Processed frame 61/456
+Processed frame 91/456
+Processed frame 121/456
+Processed frame 151/456
+Processed frame 181/456
+Processed frame 211/456
+Processed frame 241/456
+Annotated video: task2/outputs/tracking/test_tracked_yolov8m_bytetrack.mp4
+Tracking CSV: task2/outputs/tracking/test_tracking.csv
+Summary JSON: task2/outputs/tracking/test_summary.json
+Total crossings: 5
