@@ -89,6 +89,8 @@ def main() -> None:
         fps,
         (width, height),
     )
+    if not writer.isOpened():
+        raise RuntimeError(f"Failed to create video writer: {annotated_video}")
 
     model = YOLO(str(args.weights))
     track_states: dict[int, TrackState] = {}
@@ -239,6 +241,8 @@ def main() -> None:
     capture.release()
     writer.release()
 
+    processed_frames = frame_index
+    decode_shortfall_frames = max(0, total_frames - processed_frames) if total_frames else 0
     summary = {
         "source_video": str(args.source.resolve()),
         "annotated_video": str(annotated_video.resolve()),
@@ -251,6 +255,10 @@ def main() -> None:
         "frame_width": width,
         "frame_height": height,
         "total_frames": total_frames,
+        "metadata_total_frames": total_frames,
+        "processed_frames": processed_frames,
+        "decode_shortfall_frames": decode_shortfall_frames,
+        "decoded_complete": decode_shortfall_frames == 0,
         "total_crossings": total_crossings,
         "forward_count": forward_count,
         "backward_count": backward_count,
@@ -262,6 +270,12 @@ def main() -> None:
     print(f"Annotated video: {annotated_video}")
     print(f"Tracking CSV: {tracking_csv}")
     print(f"Summary JSON: {summary_json}")
+    print(f"Processed frames: {processed_frames}/{total_frames or '?'}")
+    if decode_shortfall_frames:
+        print(
+            "WARNING: OpenCV stopped before the container-reported frame count. "
+            f"Missing {decode_shortfall_frames} frames; the source video may have a broken or unsupported stream."
+        )
     print(f"Total crossings: {total_crossings}")
 
 
