@@ -1,0 +1,10 @@
+{
+  "split": "val",
+  "samples": 50,
+  "original_valid_boxes": 3497,
+  "original_ignored_rows": 148,
+  "converted_yolo_boxes": 3497,
+  "yolo_issue_count": 0,
+  "first_yolo_issues": [],
+  "note": "Gray boxes are original ignored rows; cyan boxes are converted YOLO labels."
+}

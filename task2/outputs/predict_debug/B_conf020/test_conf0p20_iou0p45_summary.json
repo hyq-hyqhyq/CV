@@ -1,0 +1,22 @@
+{
+  "source": "task2/videos/test.mp4",
+  "weights": "runs/detect/task2/runs/train/visdrone_yolov8m_1280_7gpu_ep200/weights/best.pt",
+  "output_media": "task2/outputs/predict_debug/B_conf020/test_conf0p20_iou0p45_predict.mp4",
+  "detections_csv": "task2/outputs/predict_debug/B_conf020/test_conf0p20_iou0p45_detections.csv",
+  "frames_processed": 259,
+  "detections": 226,
+  "conf": 0.2,
+  "iou": 0.45,
+  "imgsz": 1280,
+  "classes": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "device": "0"
+}

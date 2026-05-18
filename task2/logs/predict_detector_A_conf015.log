@@ -1,1 +1,16 @@
-python: can't open file '/mnt/data/huangyingqian/code/CV/task2/scripts/predict_detector.py': [Errno 2] No such file or directory
+[hevc @ 0x57f04715ddc0] Invalid NAL unit size (63679 > 56991).
+[hevc @ 0x57f04715ddc0] Error splitting the input into NAL units.
+Processed frame 1, detections=0
+Processed frame 30, detections=1
+Processed frame 60, detections=2
+Processed frame 90, detections=2
+Processed frame 120, detections=0
+Processed frame 150, detections=2
+Processed frame 180, detections=3
+Processed frame 210, detections=2
+Processed frame 240, detections=1
+Annotated output: task2/outputs/predict_debug/A_conf015/test_conf0p15_iou0p45_predict.mp4
+Detection CSV: task2/outputs/predict_debug/A_conf015/test_conf0p15_iou0p45_detections.csv
+Summary JSON: task2/outputs/predict_debug/A_conf015/test_conf0p15_iou0p45_summary.json
+Frames processed: 259
+Total detections: 363

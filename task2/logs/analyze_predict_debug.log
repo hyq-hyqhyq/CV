@@ -1,1 +1,13 @@
-python: can't open file '/mnt/data/huangyingqian/code/CV/task2/scripts/analyze_predict_debug.py': [Errno 2] No such file or directory
+Detection count plot: task2/report_assets/detection_count_per_frame.png
+Class stats CSV: task2/report_assets/detection_class_stats.csv
+Representative frames:
+  - task2/report_assets/predict_debug_frames/01_low_count_possible_miss_frame_00001.jpg
+  - task2/report_assets/predict_debug_frames/02_low_count_possible_miss_frame_00003.jpg
+  - task2/report_assets/predict_debug_frames/03_low_count_possible_miss_frame_00004.jpg
+  - task2/report_assets/predict_debug_frames/04_normal_count_frame_00002.jpg
+  - task2/report_assets/predict_debug_frames/05_normal_count_frame_00012.jpg
+  - task2/report_assets/predict_debug_frames/06_normal_count_frame_00030.jpg
+  - task2/report_assets/predict_debug_frames/07_high_count_possible_fragment_frame_00175.jpg
+  - task2/report_assets/predict_debug_frames/08_high_count_possible_fragment_frame_00165.jpg
+  - task2/report_assets/predict_debug_frames/09_high_count_possible_fragment_frame_00173.jpg
+  - task2/report_assets/predict_debug_frames/10_high_count_possible_fragment_frame_00174.jpg
