@@ -1,0 +1,15 @@
+external/
+data/
+outputs/
+*.mp4
+*.ckpt
+*.pth
+*.pt
+*.ply
+*.obj
+*.glb
+*.blend
+wandb/
+__pycache__/
+*.pyc
+.DS_Store

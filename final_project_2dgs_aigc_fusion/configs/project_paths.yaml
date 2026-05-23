@@ -1,0 +1,9 @@
+project_root: .
+external_2dgs: external/2d-gaussian-splatting
+external_threestudio: external/threestudio
+external_magic123: external/magic123
+data_root: data
+output_root: outputs
+blender_executable: blender
+wandb_project: final_project_2dgs_aigc_fusion
+

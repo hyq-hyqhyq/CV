@@ -1,0 +1,12 @@
+asset_name: background
+method: 2D Gaussian Splatting
+scene_name: counter
+input_scene_dir: data/mipnerf360/counter
+output_dir: outputs/background/2dgs
+mesh_output_dir: outputs/background/mesh
+iterations: 7000
+resolution: 4
+notes: >
+  Use a lower resolution or stronger downscale for Mip-NeRF 360 scenes if GPU
+  memory is limited.
+

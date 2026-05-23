@@ -1,0 +1,11 @@
+asset_name: object_a
+method: 2D Gaussian Splatting
+input_colmap_dir: data/object_a/colmap/dense
+output_dir: outputs/object_a/2dgs
+mesh_output_dir: outputs/object_a/mesh
+iterations: 7000
+resolution: 2
+notes: >
+  Update input_colmap_dir after running scripts/run_colmap.sh. Some 2DGS
+  forks expect the sparse/ and images/ directories at different levels.
+

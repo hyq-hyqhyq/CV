@@ -1,0 +1,18 @@
+background_mesh: outputs/normalized_meshes/background.obj
+object_a_mesh: outputs/normalized_meshes/object_a.obj
+object_b_mesh: outputs/normalized_meshes/object_b.obj
+object_c_mesh: outputs/normalized_meshes/object_c.obj
+object_a_location: [-0.7, 0.0, 0.05]
+object_b_location: [0.0, 0.0, 0.05]
+object_c_location: [0.7, 0.0, 0.05]
+object_a_rotation: [0.0, 0.0, 0.0]
+object_b_rotation: [0.0, 0.0, 0.0]
+object_c_rotation: [0.0, 0.0, 0.0]
+object_a_scale: [1.0, 1.0, 1.0]
+object_b_scale: [1.0, 1.0, 1.0]
+object_c_scale: [1.0, 1.0, 1.0]
+camera_location: [0.0, -4.0, 1.8]
+camera_rotation: [65.0, 0.0, 0.0]
+light_location: [0.0, -3.0, 4.0]
+render_resolution: [1280, 720]
+

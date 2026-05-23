@@ -1,0 +1,12 @@
+asset_name: object_c
+method: Magic123 single-image-to-3D
+input_foreground_png: data/object_c/foreground_png/object_c.png
+external_repo: external/magic123
+output_dir: outputs/object_c/magic123
+mesh_output_path: outputs/object_c/mesh/object_c.obj
+iterations: 5000
+notes: >
+  Keep Magic123 pretrained weights outside this repository. Configure weight
+  paths inside the external Magic123 checkout or pass them with command-line
+  arguments supported by that version.
+

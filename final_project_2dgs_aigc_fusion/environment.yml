@@ -1,0 +1,17 @@
+name: final-project-2dgs-aigc-fusion
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - ffmpeg
+  - numpy
+  - pandas
+  - pillow
+  - pyyaml
+  - tqdm
+  - pip:
+      - opencv-python
+      - trimesh
+
