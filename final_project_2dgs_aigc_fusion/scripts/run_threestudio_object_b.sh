@@ -57,7 +57,7 @@ resolve_path() {
   fi
 }
 
-PROMPT="a small stylized ceramic robot toy, glossy white body, blue circular eyes, simple rounded shape, clean texture, product photography style"
+PROMPT="a small stylized ceramic robot toy, glossy white body, blue circular eyes, rounded head, short arms, compact body, cute and minimal design, smooth clean surface, high-quality product design, single object, centered, highly detailed"
 OUTPUT_DIR=""
 CONFIG_NAME=""
 EXTERNAL_REPO=""
@@ -140,4 +140,3 @@ python "$LAUNCH_PY" \
 echo "Training finished or stopped by the external command."
 echo "TODO: export the generated mesh with the command supported by this threestudio version."
 echo "Expected final mesh path: $PROJECT_ROOT/${OUTPUT_ROOT:-outputs}/object_b/mesh/object_b.obj or object_b.glb"
-

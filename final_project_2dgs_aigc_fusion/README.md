@@ -66,6 +66,16 @@ data/
     garden/
 ```
 
+If you do not already have the Mip-NeRF 360 dataset locally, download only the needed background scene:
+
+```bash
+python scripts/download_mipnerf360.py \
+  --scene counter \
+  --data_root data
+```
+
+The script uses the official Mip-NeRF 360 `360_v2.zip` archive and extracts only the selected `counter` or `garden` scene into `data/mipnerf360/<scene>/`. The zip file is removed after extraction by default to save disk space; add `--keep_zip` if you want to keep it.
+
 Object A capture recommendations:
 
 - Capture 80-150 images, or extract a similar number of frames from a video.
@@ -128,6 +138,12 @@ bash scripts/run_2dgs_train_object_a.sh \
 Use either `counter` or `garden`:
 
 ```bash
+python scripts/download_mipnerf360.py \
+  --scene counter \
+  --data_root data
+```
+
+```bash
 bash scripts/run_2dgs_train_background.sh \
   --data_dir data/mipnerf360/counter \
   --output_dir outputs/background/2dgs \
@@ -155,7 +171,7 @@ bash scripts/export_2dgs_mesh.sh \
 
 ```bash
 bash scripts/run_threestudio_object_b.sh \
-  --prompt "a small stylized ceramic robot toy, glossy white body, blue circular eyes, simple rounded shape, clean texture, product photography style" \
+  --prompt "a small stylized ceramic robot toy, glossy white body, blue circular eyes, rounded head, short arms, compact body, cute and minimal design, smooth clean surface, high-quality product design, single object, centered, highly detailed" \
   --output_dir outputs/object_b/threestudio \
   --config_name TODO_choose_valid_threestudio_sds_config
 ```

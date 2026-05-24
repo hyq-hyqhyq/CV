@@ -1,6 +1,6 @@
 asset_name: object_b
 method: threestudio SDS text-to-3D
-prompt: "a small stylized ceramic robot toy, glossy white body, blue circular eyes, simple rounded shape, clean texture, product photography style"
+prompt: "a small stylized ceramic robot toy, glossy white body, blue circular eyes, rounded head, short arms, compact body, cute and minimal design, smooth clean surface, high-quality product design, single object, centered, highly detailed"
 external_repo: external/threestudio
 output_dir: outputs/object_b/threestudio
 mesh_output_path: outputs/object_b/mesh/object_b.obj
@@ -9,4 +9,3 @@ iterations: 5000
 notes: >
   Select a valid config from the installed threestudio version, such as a
   DreamFusion, SJC, or ProlificDreamer SDS config.
-
