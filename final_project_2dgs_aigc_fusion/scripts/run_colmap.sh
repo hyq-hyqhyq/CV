@@ -19,6 +19,24 @@ IMAGE_DIR=""
 OUTPUT_DIR=""
 MATCHER="exhaustive"
 
+help_has_option() {
+  local command_name="$1"
+  local option_name="$2"
+  colmap "$command_name" -h 2>&1 | grep -q -- "$option_name"
+}
+
+append_if_supported() {
+  local array_name="$1"
+  local command_name="$2"
+  local option_name="$3"
+  local option_value="$4"
+  if help_has_option "$command_name" "$option_name"; then
+    eval "$array_name+=(\"$option_name\" \"$option_value\")"
+    return 0
+  fi
+  return 1
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --image_dir)
@@ -68,22 +86,43 @@ echo "COLMAP image directory: $IMAGE_DIR"
 echo "COLMAP output directory: $OUTPUT_DIR"
 echo "COLMAP database: $DATABASE_PATH"
 
-colmap feature_extractor \
-  --database_path "$DATABASE_PATH" \
-  --image_path "$IMAGE_DIR" \
-  --ImageReader.single_camera 1 \
-  --SiftExtraction.use_gpu 1
+FEATURE_ARGS=(
+  --database_path "$DATABASE_PATH"
+  --image_path "$IMAGE_DIR"
+)
+append_if_supported FEATURE_ARGS feature_extractor "--ImageReader.single_camera" 1 || true
+if append_if_supported FEATURE_ARGS feature_extractor "--SiftExtraction.use_gpu" 1; then
+  echo "Using COLMAP feature GPU option: --SiftExtraction.use_gpu 1"
+elif append_if_supported FEATURE_ARGS feature_extractor "--FeatureExtraction.use_gpu" 1; then
+  echo "Using COLMAP feature GPU option: --FeatureExtraction.use_gpu 1"
+else
+  echo "Warning: no recognized feature extraction GPU option found; using COLMAP defaults."
+fi
+
+colmap feature_extractor "${FEATURE_ARGS[@]}"
 
 case "$MATCHER" in
   exhaustive)
-    colmap exhaustive_matcher \
-      --database_path "$DATABASE_PATH" \
-      --SiftMatching.use_gpu 1
+    MATCH_ARGS=(--database_path "$DATABASE_PATH")
+    if append_if_supported MATCH_ARGS exhaustive_matcher "--SiftMatching.use_gpu" 1; then
+      echo "Using COLMAP matching GPU option: --SiftMatching.use_gpu 1"
+    elif append_if_supported MATCH_ARGS exhaustive_matcher "--FeatureMatching.use_gpu" 1; then
+      echo "Using COLMAP matching GPU option: --FeatureMatching.use_gpu 1"
+    else
+      echo "Warning: no recognized feature matching GPU option found; using COLMAP defaults."
+    fi
+    colmap exhaustive_matcher "${MATCH_ARGS[@]}"
     ;;
   sequential)
-    colmap sequential_matcher \
-      --database_path "$DATABASE_PATH" \
-      --SiftMatching.use_gpu 1
+    MATCH_ARGS=(--database_path "$DATABASE_PATH")
+    if append_if_supported MATCH_ARGS sequential_matcher "--SiftMatching.use_gpu" 1; then
+      echo "Using COLMAP matching GPU option: --SiftMatching.use_gpu 1"
+    elif append_if_supported MATCH_ARGS sequential_matcher "--FeatureMatching.use_gpu" 1; then
+      echo "Using COLMAP matching GPU option: --FeatureMatching.use_gpu 1"
+    else
+      echo "Warning: no recognized feature matching GPU option found; using COLMAP defaults."
+    fi
+    colmap sequential_matcher "${MATCH_ARGS[@]}"
     ;;
   *)
     echo "Error: --matcher must be exhaustive or sequential." >&2
@@ -115,4 +154,3 @@ colmap image_undistorter \
 echo "COLMAP finished."
 echo "Sparse model: $MODEL_DIR"
 echo "Undistorted dense dataset: $OUTPUT_DIR/dense"
-
