@@ -1,0 +1,9 @@
+{
+  "object_c": {
+    "training_or_generation_time_minutes": 60,
+    "estimated_gpu_memory": "12 GB",
+    "geometry_quality_note": "Generated from a single image with Magic123 coarse NeRF and DMTet refinement.",
+    "texture_quality_note": "Sensitive to foreground alpha quality and Zero123/Stable Diffusion priors.",
+    "failure_cases": "Bad RGBA masks or skipped coarse stage can produce sphere-like or invalid geometry."
+  }
+}

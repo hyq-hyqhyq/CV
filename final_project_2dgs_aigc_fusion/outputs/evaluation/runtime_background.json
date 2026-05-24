@@ -1,0 +1,9 @@
+{
+  "background": {
+    "training_or_generation_time_minutes": 45,
+    "estimated_gpu_memory": "10 GB",
+    "geometry_quality_note": "Mip-NeRF 360 background reconstructed with 2DGS at 7000 iterations.",
+    "texture_quality_note": "Background appearance follows the reconstructed 2DGS/fused PLY output.",
+    "failure_cases": "Quality depends on dataset coverage and 2DGS mesh extraction quality."
+  }
+}

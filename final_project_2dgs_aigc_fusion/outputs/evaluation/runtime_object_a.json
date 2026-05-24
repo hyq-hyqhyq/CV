@@ -1,0 +1,9 @@
+{
+  "object_a": {
+    "training_or_generation_time_minutes": 45,
+    "estimated_gpu_memory": "10 GB",
+    "geometry_quality_note": "Real object reconstructed from 150 extracted frames with COLMAP and 2DGS.",
+    "texture_quality_note": "Appearance is represented by the 2DGS/fused PLY output.",
+    "failure_cases": "Quality depends on COLMAP pose quality and captured video coverage."
+  }
+}

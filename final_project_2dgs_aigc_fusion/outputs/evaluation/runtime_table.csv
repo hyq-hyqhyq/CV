@@ -1,0 +1,5 @@
+asset_name,method,training_or_generation_time_minutes,estimated_gpu_memory
+object_a,COLMAP + 2DGS,45,10 GB
+object_b,threestudio SDS,25,12 GB
+object_c,Magic123,60,12 GB
+background,2DGS,45,10 GB

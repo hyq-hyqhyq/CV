@@ -1,0 +1,110 @@
+{
+  "object_a.ply": {
+    "input_path": "outputs/object_a/mesh/object_a.ply",
+    "output_path": "outputs/normalized_meshes/object_a.ply",
+    "original_bbox_min": [
+      1.5024909997493332,
+      -11.519097664744887,
+      37.49784096206682
+    ],
+    "original_bbox_max": [
+      13.923083264343822,
+      8.1134513986464,
+      49.582202991727996
+    ],
+    "original_bbox_size": [
+      12.420592264594488,
+      19.632549063391288,
+      12.084362029661179
+    ],
+    "center_translation_before_scale": [
+      -7.712787132046578,
+      1.7028231330492432,
+      -43.54002197689741
+    ],
+    "scale": 0.050935820752114905,
+    "target_size": 1.0,
+    "has_texture": false
+  },
+  "object_b.obj": {
+    "input_path": "outputs/object_b/mesh/object_b.obj",
+    "output_path": "outputs/normalized_meshes/object_b.obj",
+    "original_bbox_min": [
+      -4.016189,
+      -1.208785,
+      -2.485913
+    ],
+    "original_bbox_max": [
+      4.296733,
+      10.08989,
+      4.093712
+    ],
+    "original_bbox_size": [
+      8.312922,
+      11.298675000000001,
+      6.579625
+    ],
+    "center_translation_before_scale": [
+      -0.14027199999999995,
+      -4.4405525,
+      -0.8038995
+    ],
+    "scale": 0.0885059531316725,
+    "target_size": 1.0,
+    "has_texture": true
+  },
+  "object_c.obj": {
+    "input_path": "outputs/object_c/mesh/object_c.obj",
+    "output_path": "outputs/normalized_meshes/object_c.obj",
+    "original_bbox_min": [
+      -0.889361,
+      -0.889361,
+      -0.889361
+    ],
+    "original_bbox_max": [
+      0.889361,
+      0.889361,
+      0.889361
+    ],
+    "original_bbox_size": [
+      1.778722,
+      1.778722,
+      1.778722
+    ],
+    "center_translation_before_scale": [
+      -0.0,
+      -0.0,
+      -0.0
+    ],
+    "scale": 0.5622014007810102,
+    "target_size": 1.0,
+    "has_texture": true
+  },
+  "background.ply": {
+    "input_path": "outputs/background/mesh/background.ply",
+    "output_path": "outputs/normalized_meshes/background.ply",
+    "original_bbox_min": [
+      -13.132989883422852,
+      -4.785454750061035,
+      -8.569904327392578
+    ],
+    "original_bbox_max": [
+      12.481491088867188,
+      12.206230163574219,
+      14.249235153198242
+    ],
+    "original_bbox_size": [
+      25.61448097229004,
+      16.991684913635254,
+      22.81913948059082
+    ],
+    "center_translation_before_scale": [
+      0.32574939727783203,
+      -3.710387706756592,
+      -2.839665412902832
+    ],
+    "scale": 0.039040416281782495,
+    "target_size": 1.0,
+    "has_texture": false
+  }
+}

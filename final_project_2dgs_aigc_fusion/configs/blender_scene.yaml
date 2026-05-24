@@ -1,5 +1,5 @@
-background_mesh: outputs/normalized_meshes/background.obj
-object_a_mesh: outputs/normalized_meshes/object_a.obj
+background_mesh: outputs/normalized_meshes/background.ply
+object_a_mesh: outputs/normalized_meshes/object_a.ply
 object_b_mesh: outputs/normalized_meshes/object_b.obj
 object_c_mesh: outputs/normalized_meshes/object_c.obj
 object_a_location: [-0.7, 0.0, 0.05]

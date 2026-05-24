@@ -210,7 +210,7 @@ python scripts/normalize_meshes.py \
     outputs/object_a/mesh/object_a.obj \
     outputs/object_b/mesh/object_b.obj \
     outputs/object_c/mesh/object_c.obj \
-    outputs/background/mesh/background.obj \
+    outputs/background/mesh/background.ply \
   --out_dir outputs/normalized_meshes \
   --target_size 1.0
 ```
@@ -255,7 +255,7 @@ python scripts/evaluate_assets.py \
   --object_a_mesh outputs/object_a/mesh/object_a.obj \
   --object_b_mesh outputs/object_b/mesh/object_b.obj \
   --object_c_mesh outputs/object_c/mesh/object_c.obj \
-  --background_mesh outputs/background/mesh/background.obj \
+  --background_mesh outputs/background/mesh/background.ply \
   --runtime_json outputs/evaluation/runtime_object_a.json \
   --runtime_json outputs/evaluation/runtime_object_b.json \
   --runtime_json outputs/evaluation/runtime_object_c.json \

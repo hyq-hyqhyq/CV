@@ -1,0 +1,9 @@
+{
+  "object_b": {
+    "training_or_generation_time_minutes": 25,
+    "estimated_gpu_memory": "12 GB",
+    "geometry_quality_note": "Generated from a text prompt with threestudio DreamFusion-style SDS.",
+    "texture_quality_note": "Texture/detail quality depends on Stable Diffusion guidance and training steps.",
+    "failure_cases": "May contain SDS artifacts or over-smoothed geometry."
+  }
+}
