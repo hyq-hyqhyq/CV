@@ -16,5 +16,6 @@
 | `output/fusion_keyframe_0090.png` | 融合场景漫游视频关键帧。 |
 | `output/fusion_keyframe_0135.png` | 融合场景漫游视频关键帧。 |
 | `output/loss_curves.png` | 训练 / 优化过程曲线图，用于报告中的实验过程展示。 |
+| `output/fusion_flythrough.mp4` | 融合场景的多视角漫游渲染视频。 |
 
-说明：本提交包不包含 mesh、视频、checkpoint、预训练权重或表格，只用于报告图片整理。
+说明：本提交包包含报告图片和最终漫游视频，不包含 mesh、checkpoint、预训练权重或表格。
